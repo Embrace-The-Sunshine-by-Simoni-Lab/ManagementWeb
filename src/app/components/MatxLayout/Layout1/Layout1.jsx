@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom'
-import Footer from '../../Footer/Footer'
 import Layout1Topbar from './Layout1Topbar'
 import Layout1Sidenav from './Layout1Sidenav'
 import Scrollbar from 'react-perfect-scrollbar'
@@ -9,9 +8,7 @@ import { styled, Box, useTheme } from '@mui/system'
 import { ThemeProvider, useMediaQuery } from '@mui/material'
 import SidenavTheme from '../../MatxTheme/SidenavTheme/SidenavTheme'
 import { sidenavCompactWidth, sideNavWidth } from 'app/utils/constant'
-import SecondarySidebar from '../../SecondarySidebar/SecondarySidebar'
 import MatxSuspense from 'app/components/MatxSuspense/MatxSuspense'
-import Test from './test'
 const Layout1Root = styled(Box)(({ theme }) => ({
     display: 'flex',
     background: theme.palette.background.default,
@@ -117,9 +114,6 @@ const Layout1 = () => {
                                 <Outlet />
                             </MatxSuspense>
                         </Box>
-                        {settings.footer.show && !settings.footer.fixed && (
-                            <Footer />
-                        )}
                     </StyledScrollBar>
                 )}
 
@@ -136,15 +130,11 @@ const Layout1 = () => {
                                 <Outlet />
                             </MatxSuspense>
                         </Box>
-                        {settings.footer.show && !settings.footer.fixed && (
-                            <Footer />
-                        )}
                     </ContentBox>
                 )}
 
-                {settings.footer.show && settings.footer.fixed && <Footer />}
             </LayoutContainer>
-            {settings.secondarySidebar.show && <SecondarySidebar />}
+
         </Layout1Root>
     )
 }

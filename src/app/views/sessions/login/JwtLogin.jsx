@@ -75,7 +75,7 @@ const JwtLogin = () => {
         {
             await login(userInfo.email, userInfo.password)
             console.log(userInfo.email, userInfo.password)
-            // navigate('/')
+            navigate('/')
         } catch (e)
         {
             console.log(e)
