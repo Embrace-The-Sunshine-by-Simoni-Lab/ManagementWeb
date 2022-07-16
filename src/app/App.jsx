@@ -1,15 +1,12 @@
 import '../fake-db'
 import React from 'react'
-import { Store } from './redux/Store'
+import { Store } from './routes/redux/Store'
 import { Provider } from 'react-redux'
 import { useRoutes } from 'react-router-dom'
-// import { AuthProvider } from 'app/contexts/FirebaseAuthContext'
-import { AuthProvider } from 'app/contexts/JWTAuthContext'
 import { SettingsProvider } from 'app/contexts/SettingsContext'
 import { AllPages } from './routes/routes'
 import { MatxTheme } from './components'
 
-import Test from './components/MatxLayout/Layout1/test'
 const App = () => {
     const all_pages = useRoutes(AllPages())
 
@@ -17,7 +14,7 @@ const App = () => {
         <Provider store={Store}>
             <SettingsProvider>
                 <MatxTheme>
-                    <AuthProvider>{all_pages}</AuthProvider>
+                    {all_pages}
                 </MatxTheme>
             </SettingsProvider>
         </Provider>

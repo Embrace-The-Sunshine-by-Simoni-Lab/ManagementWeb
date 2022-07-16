@@ -84,7 +84,7 @@ const IconBox = styled('div')(({ theme }) => ({
 const Layout1Topbar = () => {
     const theme = useTheme()
     const { settings, updateSettings } = useSettings()
-    const { logout, user } = useAuth()
+
     const isMdScreen = useMediaQuery(theme.breakpoints.down('md'))
 
     const updateSidebarMode = (sidebarSettings) => {
@@ -128,12 +128,11 @@ const Layout1Topbar = () => {
                             <UserMenu>
                                 <Hidden xsDown>
                                     <Span>
-                                        Hi <strong>{user.name}</strong>
+                                        Hi <strong>Andrew</strong>
                                     </Span>
                                 </Hidden>
                                 <Avatar
-                                    src={user.avatar}
-                                    sx={{ cursor: 'pointer' }}
+
                                 />
                             </UserMenu>
                         }
@@ -148,7 +147,7 @@ const Layout1Topbar = () => {
                             <Icon> settings </Icon>
                             <Span> Settings </Span>
                         </StyledItem>
-                        <StyledItem onClick={logout}>
+                        <StyledItem>
                             <Icon> power_settings_new </Icon>
                             <Span> Logout </Span>
                         </StyledItem>

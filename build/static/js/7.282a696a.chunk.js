@@ -1,0 +1,1 @@
+(this["webpackJsonpmatx-react-pro"]=this["webpackJsonpmatx-react-pro"]||[]).push([[7],{496:function(t,e,r){"use strict";r.r(e);var n=r(9),a=(r(0),r(26)),c=r(1),i=Object(a.a)("div")((function(t){var e=t.theme;return Object(n.a)({margin:"30px"},e.breakpoints.down("sm"),{margin:"16px"})}));e.default=function(){return Object(c.jsx)(i,{children:"Future Content here"})}}}]);

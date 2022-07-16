@@ -4,7 +4,6 @@ import { navigations, getfilteredNavigations } from 'app/navigations'
 import Scrollbar from 'react-perfect-scrollbar'
 import useSettings from 'app/hooks/useSettings'
 import MatxVerticalNav from '../MatxVerticalNav/MatxVerticalNav'
-import useAuth from '../../hooks/useAuth';
 
 const StyledScrollBar = styled(Scrollbar)(() => ({
     paddingLeft: '1rem',
@@ -28,8 +27,8 @@ const SideNavMobile = styled('div')(({ theme }) => ({
 
 const Sidenav = ({ children }) => {
     const { settings, updateSettings } = useSettings()
-    const { user } = useAuth();
-    const filteredNavigations = getfilteredNavigations(navigations, user.role)
+
+    const filteredNavigations = getfilteredNavigations(navigations)
     const updateSidebarMode = (sidebarSettings) => {
         let activeLayoutSettingsName = settings.activeLayout + 'Settings'
         let activeLayoutSettings = settings[activeLayoutSettingsName]

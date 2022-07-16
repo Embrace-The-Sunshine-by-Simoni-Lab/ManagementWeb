@@ -53,8 +53,6 @@ const Layout1Sidenav = () => {
     const leftSidebar = settings.layout1Settings.leftSidebar
     const { mode, bgImgURL } = leftSidebar
 
-    console.log(bgImgURL)
-    console.log(primaryRGB)
     const getSidenavWidth = () => {
         switch (mode)
         {
