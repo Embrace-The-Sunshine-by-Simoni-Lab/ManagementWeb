@@ -46,8 +46,8 @@ const JwtLogin = () => {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [userInfo, setUserInfo] = useState({
-        username: 'sunnyisdope',
-        password: 'Simoni2022!',
+        username: '',
+        password: '',
     })
     const [message, setMessage] = useState('')
     const { login } = useAuth()
@@ -93,8 +93,7 @@ const JwtLogin = () => {
                                     size="small"
                                     label="Username"
                                     onChange={handleChange}
-                                    // type="email"
-                                    name="email"
+                                    name="username"
                                     value={userInfo.username}
                                     errorMessages={[
                                         'this field is required',
