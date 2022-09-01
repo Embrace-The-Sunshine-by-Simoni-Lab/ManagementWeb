@@ -1,7 +1,10 @@
 import React from 'react'
 import { styled } from '@mui/system'
 import ReactEcharts from 'echarts-for-react'
-import { useTheme } from '@mui/system'
+// import { useTheme } from '@mui/system'
+import * as echarts from 'echarts';
+// import * as fs from 'fs';
+import fetch from 'node-fetch';
 
 const AnalyticsRoot = styled('div')(({ theme }) => ({
     margin: '30px',
@@ -10,12 +13,39 @@ const AnalyticsRoot = styled('div')(({ theme }) => ({
     },
 }))
 
+function readActivityData(filename) {
+    fetch(filename)
+        .then(response => response.json())
+        .then(data => { summarizeData(data) })
+        .catch(error => { console.log(error); })
+}
+
+function summarizeData(data) {
+    console.log(data);
+}
+
+function getVirtulData(year) {
+    readActivityData("generated.json");
+    year = year || '2022';
+    let date = +echarts.number.parseDate(year + '-01-01');
+    let end = +echarts.number.parseDate(+year + 1 + '-01-01');
+    let dayTime = 3600 * 24 * 1000;
+    let data = [];
+    for (let time = date; time < end; time += dayTime) {
+        data.push([
+            echarts.format.formatTime('yyyy-MM-dd', time),
+            Math.floor(Math.random() * 1000)
+        ]);
+    }
+    return data;
+}
 
 const Analytics2 = ({ height, color = [] }) => {
 
-    const theme = useTheme()
+    // const theme = useTheme()
 
     const option = {
+        /*
         grid: {
             top: '10%',
             bottom: '10%',
@@ -91,7 +121,44 @@ const Analytics2 = ({ height, color = [] }) => {
                     width: 4,
                 },
             },
+        ],*/
+        tooltip: {
+            position: 'top'
+        },
+        visualMap: {
+            min: 0,
+            max: 1000,
+            calculable: true,
+            orient: 'horizontal',
+            left: 'center',
+            top: 'top'
+        },
+        calendar: [
+            {
+                top:100,
+                range: '2022',
+                cellSize: ['auto', 20]
+            },
+            {
+                top: 360,
+                range: '2023',
+                cellSize: ['auto', 20]
+            },
         ],
+        series: [
+            {
+                type: 'heatmap',
+                coordinateSystem: 'calendar',
+                calendarIndex: 0,
+                data: getVirtulData('2022')
+            },
+            {
+                type: 'heatmap',
+                coordinateSystem: 'calendar',
+                calendarIndex: 1,
+                data: getVirtulData('2023')
+            },
+        ]
     }
     return (
         <AnalyticsRoot>
