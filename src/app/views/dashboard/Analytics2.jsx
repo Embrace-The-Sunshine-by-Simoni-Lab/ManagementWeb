@@ -14,28 +14,71 @@ const AnalyticsRoot = styled('div')(({ theme }) => ({
 }))
 
 function readActivityData(filename) {
-    fetch(filename)
-        .then(response => response.json())
-        .then(data => { summarizeData(data) })
-        .catch(error => { console.log(error); })
+    return fetch(filename)
+            .then((response) => {
+                return response.json().then((data) => {
+                    return data;
+                }).catch((err) => {
+                    console.log(err);
+                })
+            });
 }
 
 function summarizeData(data) {
-    console.log(data);
+    let users = data.users;
+    let dates = [];
+    for (let i = 0; i < users.length; i++) {
+        let activities = users[i]['activity_tracking'];
+        for (let j = 0; j < activities.length; j++) {
+            let date = activities[j].slice(0, 10);
+            dates.push(date);
+        }
+    }
+    
+    let keys = [];
+    let map = [];
+    for (let i = 0; i < dates.length; i++) {
+        let d = dates[i];
+        let idx = keys.indexOf(d);
+        if (idx === -1) {
+            keys.push(d);
+            map.push([d, 1]);
+        } else {
+            map[idx][1] += 1;
+        }
+    }
+    return [keys, map];
 }
 
 function getVirtulData(year) {
-    readActivityData("generated.json");
+    let jsonData = readActivityData("./generated.json").then((data) => {
+        return data;
+    });
+    console.log(jsonData);
+    let pair = summarizeData(jsonData);
+    let keys = pair[0];
+    let map = pair[1];
     year = year || '2022';
     let date = +echarts.number.parseDate(year + '-01-01');
     let end = +echarts.number.parseDate(+year + 1 + '-01-01');
     let dayTime = 3600 * 24 * 1000;
     let data = [];
     for (let time = date; time < end; time += dayTime) {
-        data.push([
-            echarts.format.formatTime('yyyy-MM-dd', time),
-            Math.floor(Math.random() * 1000)
-        ]);
+        let time_format = echarts.format.formatTime('yyyy-MM-dd', time);
+        let idx = keys.indexOf(time_format);
+        if (idx === -1) {
+            data.push([
+                time_format, 0
+                // Math.floor(Math.random() * 1000)
+            ]);
+        } else {
+            data.push([
+                time_format,
+                map[idx][1]
+            ]);
+        }
+        
+        data.push(map);
     }
     return data;
 }
