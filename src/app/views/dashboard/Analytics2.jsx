@@ -16,7 +16,7 @@ const AnalyticsRoot = styled('div')(({ theme }) => ({
 
 const Analytics2 = ({ height, color = [] }) => {
     const [summarizeData, UseSummarizeData] = useState({ users: [] });
-    
+    /*
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(
@@ -24,6 +24,18 @@ const Analytics2 = ({ height, color = [] }) => {
             );
 
             UseSummarizeData(result.data);
+        };
+
+        fetchData();
+    }, []);*/
+    useEffect(() => {
+        const fetchData = () => {
+            const result = axios.get(
+                'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=cloud1-2gjzvf7qc03c5783&secret=wxce2e39d26aad783a',
+            );
+            
+            console.log(result);
+            // UseSummarizeData(result.data);
         };
 
         fetchData();
